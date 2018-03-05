@@ -4,6 +4,7 @@ ParserG.Rides.Ride = function (str) {
     this.y1 = +rawRide[1];
     this.x2 = +rawRide[2];
     this.y2 = +rawRide[3];
+    this.dist = Math.abs(this.x1 - this.x2 ) + Math.abs(this.y1 - this.y2);
     this.startTime = +rawRide[4];
     this.finishTime = +rawRide[5];
     this.catched = false;

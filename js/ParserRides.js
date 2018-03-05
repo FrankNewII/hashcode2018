@@ -1,5 +1,6 @@
-ParserG.Rides = function () {
+ParserG.Rides = function (totalState) {
   this.rides = [];
+  this.totalState = totalState;
 };
 
 ParserG.Rides.prototype.addRide = function (str) {
@@ -32,30 +33,32 @@ ParserG.Rides.prototype.getRideAtThatPlace = function (time, startX, startY) {
 
 ParserG.Rides.prototype.getNearestRide = function (time, startX, startY) {
     var dist = Infinity;
+    var waitTime = Infinity;
     var id;
     var nDist;
     var nWaitTime;
-    var waitTime = Infinity;
     var ride;
+    var bonus;
     for ( var i = 0; i < this.rides.length; i++ ) {
         ride = this.rides[i];
-        nDist = Math.abs(ride.x1 - startX) + Math.abs(ride.y1 - startY);
-        nWaitTime = nDist + time;
+        nDist = Math.abs(ride.x1 - startX) + Math.abs( ride.y1 - startY );
+        needWait = ride.startTime - nDist - time;
+        nWaitTime = nDist + time + ( needWait > 0 ? needWait : 0 );
+        bonus = (nWaitTime > -1 ) ? this.totalState.bonus : 0;
 
         if ( !ride.catched
-            && nWaitTime < ride.finishTime
-            && ( dist > nDist || waitTime > nWaitTime )
+            && nWaitTime + ride.dist < ride.finishTime
+            && dist > nDist
             ) {
 
             var lastTotalTime = waitTime + dist;
-            var newTotalTime = nDist + nWaitTime;
+            var newTotalTime = nDist + nWaitTime - bonus;
 
             if ( lastTotalTime >= newTotalTime ) {
                 id = i;
                 dist = nDist;
                 waitTime = nWaitTime;
             }
-
         }
     }
 

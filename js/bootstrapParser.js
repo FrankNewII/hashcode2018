@@ -1,7 +1,7 @@
 var textarea = document.querySelector('#textarea');
-window.parsedDate = undefined;
+
+window.parsedDate = new ParserG(textarea.value);
 
 document.querySelector('#b').addEventListener('click', function () {
-    window.parsedDate = new ParserG(textarea.value);
-    window.parsedDate.startDay();
+    //window.parsedDate.startDay();
 });
