@@ -7,6 +7,7 @@ ParserG.Car = function (rides, totalState) {
     this.currentTime = 0;
     this.rides = rides;
     this.choosedRides = [];
+    this.currentWay = [];
 };
 
 ParserG.Car.prototype.newTravel = function (startX, startY, finishX, finishY, startTime) {
@@ -83,7 +84,7 @@ ParserG.Car.prototype.recursiveSearchOptimalRide = function (rides, currentTime,
 
             if ( totalSpendTime + currentTime <= ride.finishTime ) {
 
-                var bonus = currentTime + timeToPoint < ride.startTime ? this.totalState.bonus : 0;
+                var bonus = (currentTime + timeToPoint) < ride.startTime ? this.totalState.bonus : 0;
 
                 this.x = ride.x2;
                 this.y = ride.y2;
@@ -96,7 +97,7 @@ ParserG.Car.prototype.recursiveSearchOptimalRide = function (rides, currentTime,
 
                     maxCash = _tmpRides;
                     maxCash.score += currentCash;
-                    maxCash.timeover += currentTime;
+                    maxCash.timeover += totalSpendTime;
                     maxCash.choosed.push(ride);
                 } else {
 
