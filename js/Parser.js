@@ -83,6 +83,13 @@ ParserG.prototype.recursiveDevidedRide = function () {
     }
 };
 
+ParserG.prototype.searchOptimalRide = function () {
+    this.cars.forEach(function (v) {
+        var maxScoreWay = v.searchOptimalRide(v.rides.rides, v.currentTime, []);
+        console.log(maxScoreWay);
+    });
+};
+
 ParserG.prototype.recursiveSearchOptimalRide = function () {
       this.cars.forEach(function (v) {
           var maxScoreWay = v.recursiveSearchOptimalRide(v.rides.rides, v.currentTime, []);

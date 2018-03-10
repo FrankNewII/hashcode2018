@@ -31,7 +31,7 @@ ParserG.Rides.prototype.getRideAtThatPlace = function (time, startX, startY) {
     return this.rides[id];
 };
 
-ParserG.Rides.prototype.getNearestRide = function (time, startX, startY) {
+ ParserG.Rides.prototype.getNearestRide = function (time, startX, startY) {
     var dist = Infinity;
     var waitTime = Infinity;
     var id;
