@@ -90,6 +90,67 @@ ParserG.prototype.searchOptimalRide = function () {
     });
 };
 
+ParserG.prototype.searchOptimalRideRound2 = function () {
+    this.cars.forEach(function (v) {
+        v.searchOptimalRideRound2();
+    });
+};
+
+ParserG.prototype.searchSequence = function (car, excludes) {
+    var first = car.nextRide(excludes);
+
+    if ( first) {
+        car.catchRide(first);
+        var second = car.nextRide();
+
+        if(second) {
+            var distToSecond = Math.abs( first.x2 - second.x1 ) + Math.abs(first.y2 - second.y1);
+            var coef = first.dist / distToSecond;
+
+            return coef > 3 ? undefined : first;
+        }
+    }
+};
+
+ParserG.prototype.searchSequences = function () {
+    var self = this;
+    this.cars.forEach(function (v) {
+        var excludes = [];
+        var catchedRide;
+
+        function badWay(v) {
+            var carClone = v.clone();
+
+            while (true) {
+                var next = self.searchSequence(carClone, excludes);
+
+                if (next) {
+                    excludes.push(next);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        badWay(v);
+
+        while (true) {
+            if (catchedRide = v.nextRide(excludes)) {
+                v.catchRide(catchedRide);
+                badWay(v);
+            } else {
+                break;
+            }
+        }
+    });
+};
+
+ParserG.prototype.searchNearestRide = function () {
+    this.cars.forEach(function (v) {
+        v.searchNearestRide();
+    });
+};
+
 ParserG.prototype.recursiveSearchOptimalRide = function () {
       this.cars.forEach(function (v) {
           var maxScoreWay = v.recursiveSearchOptimalRide(v.rides.rides, v.currentTime, []);
