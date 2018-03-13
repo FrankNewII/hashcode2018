@@ -66,7 +66,7 @@ ParserG.Car.prototype.searchOptimalRide = function (length) {
             optimalRide = perfectRide;
     }
     optimalRide && this.catchRide(optimalRide);
-    if (length === undefined || length != this.choosedRides.length) {
+    if (length === undefined || length !== this.choosedRides.length) {
         this.searchOptimalRide(this.choosedRides.length);
     }
 };

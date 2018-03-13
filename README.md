@@ -1,5 +1,5 @@
 # hashcode2018
-Solution for problem at hashcode2018(extanded) by google.
+Solution problem at hashcode2018(extended) by google.
 
 ## Scores:
   A example = 10
